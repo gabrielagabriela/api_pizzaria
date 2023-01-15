@@ -30,6 +30,12 @@ app.get('/solicitations', (request, response) => {
   response.json(solicitation);
 })
 
+app.get('/solicitations/:id', (request, response) => {
+  const {id} = request.params
+  const solicitation = solicitations.find(solicitation => solicitation.id == id)
+  return response.json(solicitation)
+})
+
 app.post('/solicitations', (request, response) => {
   const {name_client, document_client, contact_client, address_client, payment_method, observations, pizzas} = request.body;
 
