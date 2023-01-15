@@ -13,6 +13,12 @@ app.get('/pizzas', (request, response) => {
   response.json(pizzasFIltered)
 })
 
+app.get('/pizzas/:id', (request, response) => {
+  const {id} = request.params
+  const pizza = pizzas.find(p => p.id == id)
+  return response.json(pizza)
+})
+
 app.post('/pizzas', (request, response) => {
   const pizza = {
     id: uuidv4(),
@@ -34,6 +40,12 @@ app.get('/solicitations/:id', (request, response) => {
   const {id} = request.params
   const solicitation = solicitations.find(solicitation => solicitation.id == id)
   return response.json(solicitation)
+})
+
+app.get('/solicitations/name/:name', (request, response) => {
+  const {name} = request.params
+  const pizzaClient = solicitations.find(solicitation => solicitation.name_client == name)
+  return response.json(pizzaClient)
 })
 
 app.post('/solicitations', (request, response) => {
