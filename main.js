@@ -4,6 +4,7 @@ const app = express()
 const { v4: uuidv4} = require('uuid');
 
 let pizzas = [];
+let solicitations = [];
 app.use(express.json())
 
 app.get('/pizzas', (request, response) => {
@@ -24,6 +25,30 @@ app.post('/pizzas', (request, response) => {
   pizzas.push(pizza)
 
   response.status(201).json(pizza)})
+
+app.get('/solicitations', (request, response) => {
+  response.json(solicitation);
+})
+
+app.post('/solicitations', (request, response) => {
+  const {name_client, document_client, contact_client, address_client, payment_method, observations, pizzas} = request.body;
+
+  const solicitation = {
+    id: uuidv4(),
+    name_client,
+    document_client,
+    contact_client,
+    address_client,
+    payment_method,
+    observations,
+    pizzas,
+    status: "Em Produção"
+  }
+
+  solicitations.push(solicitation)
+  response.status(201).json(solicitation);
+})
+
 
 app.listen(5555, ()=> {
   console.log("servidor no ar!")
