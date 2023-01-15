@@ -1,19 +1,22 @@
 import { v4 as uuidv4} from 'uuid'
 import { getPizzasInFile } from '../utils/getPizzasInFile.js'
 import { readFileJson } from '../utils/readFileJson.js'
-//import {Request, Response} from 'express'
+import {Request, Response} from 'express'
 import fs from 'fs'
-import {  Pizza } from '../types/pizzas.types.js'
+import {  Pizza, QueryParamsFindMyPizzas, BodyParamsCreatePizza, } from '../types/pizzas.types.js'
 
-export function findMany(request, response){
+
+export function findMany(request: Request<{}, {}, {}, QueryParamsFindMyPizzas>, response: Response) {
   const nameQuery = request.query.name || ""
+  
   const pizzas: Pizza[] = readFileJson('pizzas.json')
+
   const pizzasFiltered = pizzas.filter(pizza => pizza.name.toLowerCase().includes(nameQuery.toLowerCase()))
 
   response.json(pizzasFiltered)
 }
 
-export function create(request, response) {
+export function create(request: Request<{}, {}, BodyParamsCreatePizza>, response: Response) {
   
   const { name, description, price, url, ingredients } = request.body
 

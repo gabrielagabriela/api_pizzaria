@@ -6,3 +6,15 @@ export interface Pizza {
   price: number,
   ingredients: string[]
 }
+
+export interface QueryParamsFindMyPizzas {
+  name?: string
+}
+
+export interface BodyParamsCreatePizza {
+  name: string
+  url: string
+  description: string
+  price: number,
+  ingredients: string[]
+}
